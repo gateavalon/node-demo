@@ -5,9 +5,17 @@ const mongoose = require('mongoose');
 
 
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'Get request for products'
-    })
+    Products.find()
+        .exec()
+        .then(docs => {
+            console.log(docs);
+            res.status(200).json(docs)
+        })
+        .catch( err => {
+            res.status(400).json({
+                error: err
+            })
+        })
 });
 
 
@@ -81,11 +89,15 @@ router.get('/:productId', (req, res, next) => {
         .exec()
         .then(doc => {
             console.log("from database", doc);
-            res.status(200).json(doc);
+            res.status(200).json({
+                message: "received",
+                cratedProducts: doc
+            });
         })
         .catch(err => {
             console.log(err);
             res.status(400).json({
+                Message: "Not found",
                 error: err
             })
         })
