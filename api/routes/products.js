@@ -8,12 +8,26 @@ router.get('/', (req, res, next) => {
     Products.find()
         .exec()
         .then(docs => {
-            console.log(docs);
-            res.status(200).json(docs)
+            // console.log(docs);
+            const response = {
+                count: docs.length,
+                products: docs.map( (doc) => {
+                    return {
+                        name: doc.name,
+                        price: doc.price,
+                        _id: doc._id,
+                        request: {
+                            type: "GET",
+                            url: "http://localhost:3000/products/" + doc._id
+                        }
+                    }
+                })
+            };
+            res.status(200).json(response)
         })
         .catch( err => {
             res.status(400).json({
-                error: err
+                err
             })
         })
 });
@@ -88,7 +102,7 @@ router.get('/:productId', (req, res, next) => {
     Products.findById(id)
         .exec()
         .then(doc => {
-            console.log("from database", doc);
+            // console.log("from database", doc);
             res.status(200).json({
                 message: "received",
                 cratedProducts: doc
