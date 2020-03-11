@@ -74,7 +74,7 @@ app.use('/products', productRoutes);
 // });
 
 
-const url = "mongodb+srv://gateavalon:uoDWfRRIazgYpl6R@clustergl-6x39r.mongodb.net/test?retryWrites=true&w=majority";
+const url = "mongodb+srv://gateavalon:eFFUZ3R7ZKOCmJdJ@clustergl-6x39r.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(url, {
     useNewUrlParser: true
 });
