@@ -6,10 +6,18 @@ const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
     Products.find()
+        // .select('name price')  //method to select fields
         .exec()
         .then(docs => {
-            console.log(docs);
-            res.status(200).json(docs)
+            // console.log(docs);
+            const response = {
+                count: docs.length,
+                product: docs.map((doc) => {
+                   return doc.name
+                })
+            }
+            // res.status(200).json(docs)
+            res.status(200).json(response)
         })
         .catch( err => {
             res.status(400).json({
@@ -50,7 +58,7 @@ router.post('/', (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(400).json({
-            message: 'error'
+            message: err
         })
     });
 });
