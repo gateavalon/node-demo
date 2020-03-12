@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Products = require("../models/products");
-const mongoose = require('mongoose');
-
+const Orders = require("../models/orders");
 
 router.get('/', (req, res, next) => {
-    Products.find()
+    Orders.find()
         // .select('name price')  //method to select fields
         .exec()
         .then(docs => {
@@ -33,36 +31,24 @@ router.get('/', (req, res, next) => {
         })
 });
 
-router.post('/', (req, res) => {
-    // console.log(req.body);
-    const products = new Products({
-        // _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        price: req.body.price
-    });
 
-    // products.save((err, obj) => {
-    // if (err) {
-    //     console.error(err);
-    //     return res.status(400).json({
-    //              message: 'failure'
-    //      })
-    // }
-    //     console.log(obj);
-    //      res.status(200).json({
-    //              message: 'success'
-    //      })
-    // })
-    products.save().then(data => {
+router.post('/', (req, res) => {
+    const orders = new Orders({
+        quantity: req.body.quantity,
+        product: req.body.product
+    })
+
+    orders.save()
+        .then(data => {
         console.log(data);
         res.status(200).json({
-            message: 'obtained'
+            message: 'Order created'
         })
     })
     .catch(err => {
         console.log(err);
         res.status(400).json({
-            message: 'error'
+            message: err
         })
     });
 });

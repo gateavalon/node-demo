@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders')
 
 // app.use((req, res, next) => {
 //     res.status(200).json({
@@ -35,6 +36,7 @@ app.use((req, res, next) =>{
 
 
 app.use('/products', productRoutes);
+app.use('/orders',orderRoutes);
 
 // app.use((req, res, next) => {
 //     const error = new Error('Not Found');
@@ -49,28 +51,6 @@ app.use('/products', productRoutes);
 //             message : error.message
 //         }
 //     })
-// });
-
-// const MongoClient = require('mongodb').MongoClient;
-// const assert = require('assert');
-//
-// // Connection URL
-// const url = 'mongodb+srv://gateavalon:lceco1985@clustergl-6x39r.mongodb.net/test?retryWrites=true&w=majority';
-//
-// // Database Name
-// const dbName = 'Demo';
-//
-// // Create a new MongoClient
-// const client = new MongoClient(url);
-//
-// // Use connect method to connect to the Server
-// client.connect(function(err) {
-//   assert.equal(null, err);
-//   console.log("Connected successfully to server");
-//
-//   const db = client.db(dbName);
-//
-//   client.close();
 // });
 
 
